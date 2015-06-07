@@ -9,9 +9,6 @@ except ImportError:
 with open('README.rst') as readme_file:
     readme = readme_file.read()
 
-with open('HISTORY.rst') as history_file:
-    history = history_file.read().replace('.. :changelog:', '')
-
 requirements = [
     'Django>=1.5.1',
 ]
@@ -20,7 +17,7 @@ test_requirements = [
     # TODO: put package test requirements here
 ]
 
-setuptools.setup(
+setup(
     name="django-vest",
     version="0.1.0",
 
@@ -29,7 +26,7 @@ setuptools.setup(
     url="https://github.com/zerc/django-vest",
 
     description="Extension for default template system for making inheritance more flexible. Adding some kind of themes.",
-    long_description=readme + '\n\n' + history,
+    long_description=readme,
 
     packages=[
         'django_vest',
