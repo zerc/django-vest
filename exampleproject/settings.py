@@ -99,4 +99,4 @@ TEMPLATE_LOADERS = (
 )
 
 CURRENT_THEME = DEFAULT_THEME = 'main_theme'
-# CURRENT_THEME = 'dark_theme'
+CURRENT_THEME = 'dark_theme'
