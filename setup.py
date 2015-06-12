@@ -34,13 +34,13 @@ setup(
     package_dir={'django_vest':
                  'django_vest'},
     install_requires=requirements,
-    license="BSD",
+    license="MIT",
     zip_safe=False,
     keywords='django-vest',
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: BSD License',
+        'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         "Programming Language :: Python :: 2",
         'Programming Language :: Python :: 2.7',
