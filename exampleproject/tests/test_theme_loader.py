@@ -33,7 +33,7 @@ class TemplateLoaderTestCase(TestCase):
 
     @override_settings(CURRENT_THEME='unknow', DEFAULT_THEME='main_theme')
     def test_unknow_current_theme(self):
-        """ Test bahavior with invalid `CURRENT_THEME` name.
+        """ Testing of behavior with invalid `CURRENT_THEME` name.
         """
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
@@ -43,8 +43,8 @@ class TemplateLoaderTestCase(TestCase):
         self.assertIn('index.html', templates)
 
     @override_settings(CURRENT_THEME='unknow', DEFAULT_THEME='unknow')
-    def test_unknow_current_theme(self):
-        """ Test bahavior with invalid themes names.
+    def test_unknow_all_themes(self):
+        """ Testing of behavior with invalid themes names.
         """
         self.assertRaises(TemplateDoesNotExist, lambda: self.client.get('/'))
 

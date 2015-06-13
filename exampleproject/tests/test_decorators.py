@@ -5,14 +5,14 @@ from django_vest.test import TestCase
 from django_vest.decorators import themeble
 
 code_template = """
-@themeble(name='Form', themes=('dark_theme',), global_context=globals())
+@themeble(name='Form', themes=('dark_theme',))
 class DarkThemeForm(object):
     ''' Some kind of logic for dark_theme
     '''
     name = 'DarkThemeForm'
 
 
-@themeble(name='Form', global_context=globals())
+@themeble(name='Form')
 class DefaultForm(object):
     ''' Default logic for all themes
     '''
@@ -40,3 +40,28 @@ class ThemebleTestCase(TestCase):
         exec code_template in context
 
         self.assertEqual(context['Form'], context['DarkThemeForm'])
+
+    @override_settings(CURRENT_THEME='unknow', DEFAULT_THEME='main_theme')
+    def test_unknow_current_theme(self):
+        """ Testing of behavior with invalid `CURRENT_THEME` name.
+        """
+        context = {'themeble': themeble}
+        exec code_template in context
+
+        self.assertEqual(context['Form'], context['DefaultForm'])
+
+    @override_settings(CURRENT_THEME='unknow', DEFAULT_THEME='unknow')
+    def test_unknow_all_themes(self):
+        """ Testing of behavior with invalid themes names.
+        """
+        context = {'themeble': themeble}
+        exec code_template in context
+
+        self.assertEqual(context['Form'], context['DefaultForm'])
+
+    @override_settings(CURRENT_THEME=None, DEFAULT_THEME=None)
+    def test_themes_not_set(self):
+        context = {'themeble': themeble}
+        exec code_template in context
+
+        self.assertEqual(context['Form'], context['DefaultForm'])
