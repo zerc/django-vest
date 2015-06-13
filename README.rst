@@ -49,7 +49,30 @@ In example bellow ``Form`` class will be alias for DarkThemeForm if ``settings.C
 Installation
 ------------
 
-Just type: ``pip install django_vest``
+    $ pip install django_vest
+
+And add next setting options to your ``settings.py``:
+
+.. code:: python
+
+    TEMPLATE_LOADERS = (
+        'django_vest.templates_loaders.Loader',
+        'django.template.loaders.app_directories.Loader',
+    )
+
+    DEFAULT_THEME = 'main_theme'
+
+    # Unique for each host
+    CURRENT_THEME = 'dark_theme'
+
+
+Then update structure of your templates like this:
+
+    exampleproject/templates/
+    ├── dark_theme
+    │   └── index.html
+    └── main_theme
+        └── index.html
 
 Contributing
 ------------
