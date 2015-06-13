@@ -51,14 +51,42 @@ Installation
 
 Just type: ``pip install django_vest``
 
+Contributing
+------------
 
-Licence
--------
+1. Fork the `django-vest` repo on GitHub.
+2. Clone your fork locally::
+
+    $ git clone git@github.com:your_name_here/django-vest.git
+
+3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development::
+
+    $ mkvirtualenv django-vest
+    $ cd django-vest/
+    $ python setup.py develop
+
+4. Create a branch for local development::
+
+    $ git checkout -b name-of-your-bugfix-or-feature
+
+   Now you can make your changes locally.
+
+5. When you're done making changes, check that your changes pass the tests, including testing other Python versions with tox::
+
+    $ python setup.py test
+    $ make test-all
+
+6. Commit your changes and push your branch to GitHub::
+
+    $ git add .
+    $ git commit -m "Your detailed description of your changes."
+    $ git push origin name-of-your-bugfix-or-feature
+
+7. Submit a pull request through the GitHub website.
+
+
+Licence && Authors
+-------------------
 The MIT License (MIT)
 
-Copyright (c) 2015 Vladimir Savin
-
-Authors
--------
-
-``django-vest`` was written by `Vladimir Savin <zero13cool@yandex.ru>`_.
+Copyright (c) 2015 `Vladimir Savin <zero13cool@yandex.ru>`_.
