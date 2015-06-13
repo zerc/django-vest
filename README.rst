@@ -88,7 +88,7 @@ Contributing
 
     $ git clone git@github.com:your_name_here/django-vest.git
 
-3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development::
+3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development:
 
 .. code:: bash
 
@@ -96,7 +96,7 @@ Contributing
     $ cd django-vest/
     $ python setup.py develop
 
-4. Create a branch for local development::
+4. Create a branch for local development:
 
 .. code:: bash
 
@@ -104,14 +104,14 @@ Contributing
 
    Now you can make your changes locally.
 
-5. When you're done making changes, check that your changes pass the tests, including testing other Python versions with tox::
+5. When you're done making changes, check that your changes pass the tests, including testing other Python versions with tox:
 
 .. code:: bash
 
     $ python setup.py test
     $ make test-all
 
-6. Commit your changes and push your branch to GitHub::
+6. Commit your changes and push your branch to GitHub:
 
 .. code:: bash
 
