@@ -49,6 +49,8 @@ In example bellow ``Form`` class will be alias for DarkThemeForm if ``settings.C
 Installation
 ------------
 
+.. code:: bash
+
     $ pip install django_vest
 
 And add next setting options to your ``settings.py``:
@@ -68,6 +70,8 @@ And add next setting options to your ``settings.py``:
 
 Then update structure of your templates like this:
 
+.. code:: bash
+
     exampleproject/templates/
     ├── dark_theme
     │   └── index.html
@@ -78,11 +82,15 @@ Contributing
 ------------
 
 1. Fork the `django-vest` repo on GitHub.
-2. Clone your fork locally::
+2. Clone your fork locally:
+
+.. code:: bash
 
     $ git clone git@github.com:your_name_here/django-vest.git
 
 3. Install your local copy into a virtualenv. Assuming you have virtualenvwrapper installed, this is how you set up your fork for local development::
+
+.. code:: bash
 
     $ mkvirtualenv django-vest
     $ cd django-vest/
@@ -90,16 +98,22 @@ Contributing
 
 4. Create a branch for local development::
 
+.. code:: bash
+
     $ git checkout -b name-of-your-bugfix-or-feature
 
    Now you can make your changes locally.
 
 5. When you're done making changes, check that your changes pass the tests, including testing other Python versions with tox::
 
+.. code:: bash
+
     $ python setup.py test
     $ make test-all
 
 6. Commit your changes and push your branch to GitHub::
+
+.. code:: bash
 
     $ git add .
     $ git commit -m "Your detailed description of your changes."
