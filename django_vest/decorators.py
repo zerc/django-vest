@@ -1,10 +1,10 @@
 # coding: utf-8
-from django_vest import config
+from django_vest.config import settings
 
 __ALL__ = ('themeble',)
 
 
-def themeble(name, themes=None):
+def themeble(name, themes=None, global_context=None):
     """ Decorator for registering objects (i.e. functions, classes) for
     different themes.
 
@@ -17,6 +17,8 @@ def themeble(name, themes=None):
     Example:
 
     .. code:: python
+
+        # my_app.forms.py
 
         @themeble(name='Form', themes=('dark_theme',))
         class DarkThemeForm(object):
@@ -36,16 +38,19 @@ def themeble(name, themes=None):
 
     .. code:: python
 
-        from django_vest.decorators import Form
-        Form.name # we got DarkThemeForm
+        # my_app.views.py
+
+        from my_app.forms import Form
+        assert Form.name == 'DarkThemeForm'
 
     """
     def wrap(obj):
-        if themes and config.CURRENT_THEME in themes:
-            globals()[name] = obj
+        context = global_context or globals()
+        if themes and settings.CURRENT_THEME in themes:
+            context[name] = obj
 
-        elif themes is None and name not in globals():
-            globals()[name] = obj
+        elif themes is None and name not in context:
+            context[name] = obj
 
         return obj
     return wrap
