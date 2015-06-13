@@ -28,7 +28,7 @@ class ThemebleTestCase(TestCase):
         """ Default theme is used.
         """
         context = {'themeble': themeble}
-        exec code_template in context
+        exec(code_template, context)
 
         self.assertEqual(context['Form'], context['DefaultForm'])
 
@@ -37,7 +37,7 @@ class ThemebleTestCase(TestCase):
         """ Second theme is used.
         """
         context = {'themeble': themeble}
-        exec code_template in context
+        exec(code_template, context)
 
         self.assertEqual(context['Form'], context['DarkThemeForm'])
 
@@ -46,7 +46,7 @@ class ThemebleTestCase(TestCase):
         """ Testing of behavior with invalid `CURRENT_THEME` name.
         """
         context = {'themeble': themeble}
-        exec code_template in context
+        exec(code_template, context)
 
         self.assertEqual(context['Form'], context['DefaultForm'])
 
@@ -55,13 +55,13 @@ class ThemebleTestCase(TestCase):
         """ Testing of behavior with invalid themes names.
         """
         context = {'themeble': themeble}
-        exec code_template in context
+        exec(code_template, context)
 
         self.assertEqual(context['Form'], context['DefaultForm'])
 
     @override_settings(CURRENT_THEME=None, DEFAULT_THEME=None)
     def test_themes_not_set(self):
         context = {'themeble': themeble}
-        exec code_template in context
+        exec(code_template, context)
 
         self.assertEqual(context['Form'], context['DefaultForm'])
