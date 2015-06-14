@@ -95,7 +95,7 @@ TEMPLATE_DIRS = (
 
 TEMPLATE_LOADERS = (
     'django_vest.templates_loaders.Loader',
-    'django.template.loaders.app_directories.Loader',
+    'django_vest.templates_loaders.AppsLoader',
 )
 
 CURRENT_THEME = DEFAULT_THEME = 'main_theme'
