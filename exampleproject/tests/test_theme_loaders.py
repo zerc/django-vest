@@ -2,7 +2,8 @@
 from django.test import override_settings
 from django.contrib.auth import get_user_model
 from django.template.base import TemplateDoesNotExist
-from django.core.urlresolvers import reverse_lazy
+from django.core.urlresolvers import reverse
+from django.utils.text import force_text
 
 from django_vest.test import TestCase
 from django_vest.templates_loaders import DJANGO_ORIGIN
@@ -59,16 +60,19 @@ class TemplateLoaderTestCase(TestCase):
 class AppsTemplateLoaderTestCase(TestCase):
     """ TestCase for `django_vest.template_loaders.AppsLoader`
     """
-    url = reverse_lazy('admin:auth_user_changelist')
 
     @classmethod
     def setUpClass(cls):
+        super(AppsTemplateLoaderTestCase, cls).setUpClass()
+
         cls.User = get_user_model()
         cls.username = cls.password = 'user'
         cls.email = 'user@users.com'
 
         cls.user = cls.User.objects.create_superuser(cls.username, cls.email,
                                                      cls.password)
+
+        cls.url = reverse('admin:auth_user_changelist')
 
     def setUp(self):
         self.client.login(username=self.username, password=self.password)
@@ -81,7 +85,8 @@ class AppsTemplateLoaderTestCase(TestCase):
         templates = get_templates_used(response)
 
         self.assertIn(DJANGO_ORIGIN, ','.join(templates))
-        self.assertIn('Template has been overridden', response.content)
+        self.assertIn(u'Template has been overridden',
+                      force_text(response.content))
 
 
 def get_templates_used(response):

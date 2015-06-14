@@ -94,10 +94,10 @@ Then update structure of your templates like this:
 .. code:: bash
 
     exampleproject/templates/
-    ├── dark_theme
-    │   └── index.html
-    └── main_theme
-        └── index.html
+    | - dark_theme
+        | - index.html
+    | - main_theme
+        | - index.html
 
 Contributing
 ------------
