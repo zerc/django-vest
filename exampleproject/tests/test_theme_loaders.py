@@ -1,8 +1,11 @@
 # coding: utf-8
 from django.test import override_settings
+from django.contrib.auth import get_user_model
 from django.template.base import TemplateDoesNotExist
+from django.core.urlresolvers import reverse_lazy
 
 from django_vest.test import TestCase
+from django_vest.templates_loaders import DJANGO_ORIGIN
 
 
 class TemplateLoaderTestCase(TestCase):
@@ -51,6 +54,34 @@ class TemplateLoaderTestCase(TestCase):
     @override_settings(CURRENT_THEME=None, DEFAULT_THEME=None)
     def test_themes_not_set(self):
         self.assertRaises(TemplateDoesNotExist, lambda: self.client.get('/'))
+
+
+class AppsTemplateLoaderTestCase(TestCase):
+    """ TestCase for `django_vest.template_loaders.AppsLoader`
+    """
+    url = reverse_lazy('admin:auth_user_changelist')
+
+    @classmethod
+    def setUpClass(cls):
+        cls.User = get_user_model()
+        cls.username = cls.password = 'user'
+        cls.email = 'user@users.com'
+
+        cls.user = cls.User.objects.create_superuser(cls.username, cls.email,
+                                                     cls.password)
+
+    def setUp(self):
+        self.client.login(username=self.username, password=self.password)
+
+    def test_override_origin_template(self):
+        response = self.client.get(self.url)
+
+        self.assertEqual(response.status_code, 200)
+
+        templates = get_templates_used(response)
+
+        self.assertIn(DJANGO_ORIGIN, ','.join(templates))
+        self.assertIn('Template has been overridden', response.content)
 
 
 def get_templates_used(response):

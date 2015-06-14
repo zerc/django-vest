@@ -2,10 +2,6 @@
 {% load i18n admin_urls admin_static admin_list %}
 
 {% block breadcrumbs %}
-<div class="breadcrumbs">
-<a href="#">Hello</a>
-<a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
-&rsaquo; <a href="{% url 'admin:app_list' app_label=cl.opts.app_label %}">{{ cl.opts.app_config.verbose_name }}</a>
-&rsaquo; {{ cl.opts.verbose_name_plural|capfirst }}
-</div>
+  <div>Template has been overridden</div>
+  {{ block.super }}
 {% endblock %}

@@ -46,6 +46,27 @@ He allowing to split templates on ``themes`` - one per site. We also have extend
 
 In example bellow ``Form`` class will be alias for DarkThemeForm if ``settings.CURRENT_THEME == 'dark_theme'`` otherwise it is ``DefaultForm``.
 
+**Extends for default templates**
+
+Version 0.1.3 has a new template loader ``django_vest.templates_loaders.AppsLoader`` and new keyword ``DJANGO_ORIGIN``.
+
+Now we can override default django admin template without copy past of full origin file.
+
+Example:
+
+File: ``templates/main_theme/admin/change_list.html``
+
+.. code:: html
+
+    {% extends "DJANGO_ORIGIN/admin/change_list.html" %}
+    {% load i18n admin_urls admin_static admin_list %}
+
+    {% block breadcrumbs %}
+      <div>Template has been overridden</div>
+      {{ block.super }}
+    {% endblock %}
+
+
 Installation
 ------------
 
@@ -59,7 +80,7 @@ And add next setting options to your ``settings.py``:
 
     TEMPLATE_LOADERS = (
         'django_vest.templates_loaders.Loader',
-        'django.template.loaders.app_directories.Loader',
+        'django_vest.templates_loaders.AppsLoader',
     )
 
     DEFAULT_THEME = 'main_theme'

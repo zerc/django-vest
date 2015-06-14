@@ -2,7 +2,9 @@
 from django.utils._os import safe_join
 from django.template.base import TemplateDoesNotExist
 from django.template.loaders.filesystem import Loader as BaseLoader
-from django.template.loaders.app_directories import Loader as AppsBaseLoader, app_template_dirs
+from django.template.loaders.app_directories import (
+    Loader as AppsBaseLoader, app_template_dirs)
+
 from django_vest.config import settings
 
 __ALL__ = ('Loader', 'AppsLoader')
