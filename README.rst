@@ -1,9 +1,13 @@
 django-vest
 ===========
 
-.. image:: https://pypip.in/v/django-vest/badge.png
+.. image:: https://img.shields.io/pypi/v/django-vest.svg
     :target: https://pypi.python.org/pypi/django-vest
     :alt: Latest PyPI version
+
+.. image:: https://travis-ci.org/zerc/django-vest.svg?branch=master
+    :target: https://travis-ci.org/zerc/django-vest
+    :alt: Build status
 
 Extension for default template system for making inheritance more flexible. Adding some kind of themes.
 
