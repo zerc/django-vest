@@ -6,7 +6,7 @@ import unittest
 from django.test import TestCase as BaseTestCase
 from django.test.runner import DiscoverRunner as BaseTestRunner
 
-from django_vest import config
+from django_vest.config import settings
 
 
 class ThemebleTestSuite(unittest.TestSuite):
@@ -39,7 +39,7 @@ class ThemebleTestRunner(BaseTestRunner):
     def run_tests(self, test_labels, extra_tests=None, **kwargs):
         if self.verbosity > 1:
             print(u'>>> Run tests for theme: {}'.format(
-                config.CURRENT_THEME))
+                settings.CURRENT_THEME))
         return super(ThemebleTestRunner, self).run_tests(
             test_labels, extra_tests, **kwargs)
 
@@ -56,7 +56,7 @@ class TestCase(BaseTestCase):
         if not isinstance(themes, (list, tuple, set)):
             themes = [themes]
 
-        if not themes or config.CURRENT_THEME in themes:
+        if not themes or settings.CURRENT_THEME in themes:
             return super(TestCase, self).countTestCases()
 
         return 0
