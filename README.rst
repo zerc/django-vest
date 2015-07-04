@@ -92,6 +92,12 @@ And add next setting options to your ``settings.py``:
     # Unique for each host
     CURRENT_THEME = 'dark_theme'
 
+Or you can set os environment:
+
+.. code:: bash
+
+    export CURRENT_THEME=dark_theme
+
 
 Then update structure of your templates like this:
 
