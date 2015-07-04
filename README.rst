@@ -133,7 +133,6 @@ Contributing
 
 .. code:: bash
 
-    $ python setup.py test
     $ make test-all
 
 6. Commit your changes and push your branch to GitHub:
