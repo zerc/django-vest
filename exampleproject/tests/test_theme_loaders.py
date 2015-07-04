@@ -1,9 +1,13 @@
 # coding: utf-8
+import os
+
 from django.test import override_settings
 from django.contrib.auth import get_user_model
 from django.template.base import TemplateDoesNotExist
 from django.core.urlresolvers import reverse
 from django.utils.text import force_text
+
+import mock
 
 from django_vest.test import TestCase
 from django_vest.templates_loaders import DJANGO_ORIGIN
@@ -27,13 +31,7 @@ class TemplateLoaderTestCase(TestCase):
         """ Second theme is used. Index page opened.
         Must be extended from default theme index.html.
         """
-        response = self.client.get('/')
-        self.assertEqual(response.status_code, 200)
-
-        templates = get_templates_used(response)
-        self.assertEqual(len(templates), 2)
-        self.assertIn('index.html', templates)
-        self.assertIn('DEFAULT_THEME/index.html', templates)
+        self._check_is_dark_theme()
 
     @override_settings(CURRENT_THEME='unknow', DEFAULT_THEME='main_theme')
     def test_unknow_current_theme(self):
@@ -55,6 +53,24 @@ class TemplateLoaderTestCase(TestCase):
     @override_settings(CURRENT_THEME=None, DEFAULT_THEME=None)
     def test_themes_not_set(self):
         self.assertRaises(TemplateDoesNotExist, lambda: self.client.get('/'))
+
+    @override_settings(CURRENT_THEME=None, DEFAULT_THEME='main_theme')
+    def test_gettings_theme_from_env(self):
+        """ Testing for getting param from os env
+        """
+        with mock.patch.dict('os.environ', {'CURRENT_THEME': 'dark_theme'}):
+            self._check_is_dark_theme()
+
+    def _check_is_dark_theme(self):
+        """ Common checks for `dark_theme`
+        """
+        response = self.client.get('/')
+        self.assertEqual(response.status_code, 200)
+
+        templates = get_templates_used(response)
+        self.assertEqual(len(templates), 2)
+        self.assertIn('index.html', templates)
+        self.assertIn('DEFAULT_THEME/index.html', templates)
 
 
 class AppsTemplateLoaderTestCase(TestCase):
