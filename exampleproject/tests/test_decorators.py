@@ -19,6 +19,18 @@ class DefaultForm(object):
     name = 'Default form'
 """
 
+invalid_code = """
+class Form(object):
+    ''' Existing form
+    '''
+
+@themeble(name='Form', themes=('dark_theme',))
+class Form(object):
+    ''' Some kind of logic for dark_theme
+    '''
+    name = 'DarkThemeForm'
+"""
+
 
 class ThemebleTestCase(TestCase):
     """ TestCases for `django_vest.decorators.themeble` decorator.
@@ -65,3 +77,10 @@ class ThemebleTestCase(TestCase):
         exec(code_template, context)
 
         self.assertEqual(context['Form'], context['DefaultForm'])
+
+    @override_settings(CURRENT_THEME='dark_theme', DEFAULT_THEME='main_theme')
+    def test_failed_to_override_existing_name(self):
+        context = {'themeble': themeble}
+
+        with self.assertRaises(RuntimeError):
+            exec(invalid_code, context)
