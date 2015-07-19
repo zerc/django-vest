@@ -15,10 +15,9 @@ class Settings(object):
         """ Trying to getting `CURRENT_THEME` parameter
         from settings or os env.
         """
-        value = getattr(django_settings, 'CURRENT_THEME', None)
-        if value:
-            return value
-        return os.getenv('CURRENT_THEME', None)
+        value = (getattr(django_settings, 'CURRENT_THEME', None) or
+                 os.getenv('CURRENT_THEME', None))
+        return value
 
     @property
     def DEFAULT_THEME(self):

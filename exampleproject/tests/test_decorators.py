@@ -1,5 +1,6 @@
 # coding: utf-8
 from django.test import override_settings
+from django.core.urlresolvers import reverse
 
 from django_vest.test import TestCase
 from django_vest.decorators import themeble
@@ -84,3 +85,44 @@ class ThemebleTestCase(TestCase):
 
         with self.assertRaises(RuntimeError):
             exec(invalid_code, context)
+
+
+class OnlyForTestCase(TestCase):
+    """ TestCases for `django_vest.decorators.only_for` decorator.
+    """
+    urls_names = ['dark_index', 'dark_index_not_found']
+
+    @override_settings(CURRENT_THEME='main_theme', DEFAULT_THEME='main_theme')
+    def test_restict_access_redirect(self):
+        """ Test for `dark_index` page.
+        """
+        url = reverse(self.urls_names[0])
+        response = self.client.get(url)
+        self.assertRedirects(
+            response,
+            '{}?next={}'.format(reverse('restict_access'), url))
+
+    @override_settings(CURRENT_THEME='main_theme', DEFAULT_THEME='main_theme')
+    def test_dark_index_not_found(self):
+        """ Test for raising error
+        """
+        url = reverse(self.urls_names[1])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 404)
+
+    @override_settings(CURRENT_THEME='dark_theme', DEFAULT_THEME='main_theme')
+    def test_pages_opened(self):
+        """ With right theme all page opened.
+        """
+        for url in self.urls_names:
+            response = self.client.get(reverse(url))
+            self.assertEqual(response.status_code, 200)
+
+    @override_settings(CURRENT_THEME=None, DEFAULT_THEME='main_theme')
+    def test_pages_opened_without_themes(self):
+        """ Without CURRENT_THEME opened default template inside in root
+        templates directory.
+        """
+        for url in self.urls_names:
+            response = self.client.get(reverse(url))
+            self.assertEqual(response.status_code, 200)

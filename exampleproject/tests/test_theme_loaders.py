@@ -76,7 +76,6 @@ class TemplateLoaderTestCase(TestCase):
 class AppsTemplateLoaderTestCase(TestCase):
     """ TestCase for `django_vest.template_loaders.AppsLoader`
     """
-
     @classmethod
     def setUpClass(cls):
         super(AppsTemplateLoaderTestCase, cls).setUpClass()

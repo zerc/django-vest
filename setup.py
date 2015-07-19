@@ -11,6 +11,7 @@ with open('README.rst') as readme_file:
 
 requirements = [
     'Django>=1.5.1',
+    'six==1.9.0',
 ]
 
 test_requirements = [

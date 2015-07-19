@@ -1,9 +1,14 @@
 # coding: utf-8
 import inspect
+from functools import wraps
+
+import six
 
 from django_vest.config import settings
+from django.utils.decorators import available_attrs
+from django.contrib.auth.decorators import user_passes_test
 
-__ALL__ = ('themeble',)
+__ALL__ = ('themeble', 'only_for')
 
 
 def themeble(name, themes=None, global_context=None):
@@ -60,3 +65,44 @@ def themeble(name, themes=None, global_context=None):
 
         return obj
     return wrap
+
+
+def only_for(theme, redirect_to='/', raise_error=None):
+    """ Decorator for restrict access to views according by list of themes.
+
+    Params:
+
+        * ``theme`` - string or list of themes where decorated view must be
+        * ``redirect_to`` - url or name of url pattern for redirect
+            if CURRENT_THEME not in themes
+        * ``raise_error`` - error class for raising
+
+    Example:
+
+    .. code:: python
+
+        # views.py
+
+        from django_vest import only_for
+
+        @only_for('black_theme')
+        def my_view(request):
+            ...
+    """
+    def check_theme(*args, **kwargs):
+        if isinstance(theme, six.string_types):
+            themes = (theme,)
+        else:
+            themes = theme
+
+        if settings.CURRENT_THEME is None:
+            return True
+
+        result = settings.CURRENT_THEME in themes
+
+        if not result and raise_error is not None:
+            raise raise_error
+
+        return result
+
+    return user_passes_test(check_theme, login_url=redirect_to)
