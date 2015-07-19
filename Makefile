@@ -41,3 +41,6 @@ dist: clean
 
 install: clean
 	python setup.py install
+
+run: clean
+	python exampleproject/manage.py runserver 0.0.0.0:8000
