@@ -20,7 +20,7 @@ test_requirements = [
 
 setup(
     name="django-vest",
-    version="0.1.4",
+    version="0.1.5",
 
     author="Vladimir Savin",
     author_email="zero13cool@yandex.ru",
