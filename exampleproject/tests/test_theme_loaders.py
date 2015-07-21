@@ -58,7 +58,8 @@ class TemplateLoaderTestCase(TestCase):
     def test_gettings_theme_from_env(self):
         """ Testing for getting param from os env
         """
-        with mock.patch.dict('os.environ', {'CURRENT_THEME': 'dark_theme'}):
+        with mock.patch.dict('os.environ',
+                             {'DJANGO_VEST_CURRENT_THEME': 'dark_theme'}):
             self._check_is_dark_theme()
 
     def _check_is_dark_theme(self):
