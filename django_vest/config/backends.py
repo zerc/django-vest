@@ -3,6 +3,9 @@ from __future__ import unicode_literals
 import os
 
 from django.conf import settings as django_settings
+from django.utils.functional import cached_property
+
+from django_vest.fields import get_field
 
 
 class Simple(object):
@@ -40,5 +43,17 @@ class Env(object):
         return os.environ.get('DJANGO_VEST_DEFAULT_THEME', None)
 
 
+class Database(object):
+    """ Receive `CURRENT_THEME` for db field (django_vest.fields.VestField).
+    """
+    @property
+    def CURRENT_THEME(self):
+        field = get_field()
+        settings = field.model.objects.first()
+        if settings:
+            return getattr(settings, field.name)
+
+
 simple = Simple()
 env = Env()
+database = Database()
