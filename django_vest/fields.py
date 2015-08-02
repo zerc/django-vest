@@ -55,3 +55,10 @@ class VestField(TrackUsageFieldMixin, models.CharField):
                     'VestField got unknow themes: {}'.format(force_text(diff)))
 
         super(VestField, self).__init__(*args, **kwargs)
+
+
+try:
+    from south.modelsinspector import add_introspection_rules
+    add_introspection_rules([], ["^django_vest\.fields\.VestField"])
+except ImportError:
+    pass
