@@ -57,17 +57,17 @@ If you want restricting access to views according by ``CURRENT_THEME`` just use 
     # views.py
     from django.http import Http404
     from django.views.generic.base import TemplateView
-    
+
     from django_vest import only_for
 
     @only_for('black_theme')
     def my_view(request):
         ...
-    
+
     # Redirect for special page
     dark_theme_page = only_for('dark_theme', redirect_to='restict_access')(
         TemplateView.as_view(template_name='dark_theme_page.html'))
-    
+
     # Raise Http404 when user trying to open page with invalid theme
     dark_theme_page_not_found = \
         only_for('dark_theme', raise_error=Http404)(
@@ -120,10 +120,21 @@ Or you can set os environment:
 
 .. code:: bash
 
-    export CURRENT_THEME=dark_theme
+    export DJANGO_VEST_CURRENT_THEME=dark_theme
 
+Also you can specify list of backends for getting settings. Default is:
 
-Then update structure of your templates like this:
+.. code:: python
+
+    VEST_SETTINGS_BACKENDS_LIST = (
+        'django_vest.config.backends.simple',
+        'django_vest.config.backends.env'
+    )
+
+* django_vest.config.backends.simple - getting settings about theme from project`s settings file.
+* django_vest.config.backends.env - from os envirom
+
+Then you need to update structure of your templates like this:
 
 .. code:: bash
 
@@ -132,6 +143,28 @@ Then update structure of your templates like this:
         | - index.html
     | - main_theme
         | - index.html
+
+**IMPORTANT**: theme folder must ends with *_theme* suffix (example: my_super_mega_theme)
+
+Other config backends (Experimental)
+------------------------------------
+Django-vest have are several other backends like:
+
+``django_vest.config.backends.database``. If you have some singleton model for store settings of your site you can use ``django_vest.fields.VestField`` for storing information of **CURRENT_THEME** in database.
+
+For activating this feature you must do next steps:
+
+* Add ``django_vest.fields.VestField`` to you settings model and migrate.
+* Add ``django_vest.config.backends.database`` backend to top of VEST_SETTINGS_BACKENDS_LIST setting. Example:
+
+.. code:: python
+
+    VEST_SETTINGS_BACKENDS_LIST = (
+        'django_vest.config.backends.database',
+        'django_vest.config.backends.simple',
+        'django_vest.config.backends.env',
+    )
+
 
 Contributing
 ------------

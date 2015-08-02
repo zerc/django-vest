@@ -31,6 +31,8 @@ setup(
 
     packages=[
         'django_vest',
+        'django_vest/config',
+        'django_vest/templatetags',
     ],
     package_dir={'django_vest':
                  'django_vest'},

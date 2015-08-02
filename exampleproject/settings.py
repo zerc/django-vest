@@ -98,5 +98,12 @@ TEMPLATE_LOADERS = (
     'django_vest.templates_loaders.AppsLoader',
 )
 
+VEST_SETTINGS_BACKENDS_LIST = (
+    'django_vest.config.backends.database',
+    'django_vest.config.backends.simple',
+    'django_vest.config.backends.env',
+)
+
 CURRENT_THEME = DEFAULT_THEME = 'main_theme'
+# CURRENT_THEME = None
 # CURRENT_THEME = 'dark_theme'
