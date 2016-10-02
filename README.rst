@@ -9,20 +9,20 @@ django-vest
     :target: https://travis-ci.org/zerc/django-vest
     :alt: Build status
 
-Extension for default template system for making inheritance more flexible. Adding some kind of themes.
+Extension of default template system what makes inheritance more flexible through add themes.
 
 Usage
 -----
-Imagine you have several sites on different hosts. They differ by visually and small functional. ``django-vest`` this is a way to use one code base for this situation.
+Imagine that you have several sites on different hosts. They differ by visually and functionally a bit. ``django-vest`` provides the way to use the same code base in such kind of situations.
 
-He allowing to split templates on ``themes`` - one per site. We also have extended inheritance between themes - we have `DEFAULT_THEME` and we can override each template in `CURRENT_THEME`. Exmaple:
+It allows splitting templates into ``themes`` - for one per site. Also, it provides the extended inheritance between these themes through `DEFAULT_THEME` keyword. Using this keyword in templates we can override each template. For example:
 
 .. code:: html
 
     {% extends 'DEFAULT_THEME/index.html' %}
     {% block page_title %}Dark theme{% endblock %}
 
-``django-vest`` have some tools for logic splitting according by ``CURRENT_THEME`` in views. Assume we have some ``form`` class who is different in each theme. Then our code may looks like:
+``django-vest`` has several ways to split a logic according to ``CURRENT_THEME`` in views. Assume that you have some ``form`` class which is different for each theme. Then your code may look like:
 
 
 .. code:: python
@@ -48,9 +48,9 @@ He allowing to split templates on ``themes`` - one per site. We also have extend
     from .forms import Form
 
 
-In example bellow ``Form`` class will be alias for DarkThemeForm if ``settings.CURRENT_THEME == 'dark_theme'`` otherwise it is ``DefaultForm``.
+In example above ``Form`` class will be an alias for DarkThemeForm if ``settings.CURRENT_THEME == 'dark_theme'``, otherwise it is ``DefaultForm``.
 
-If you want restricting access to views according by ``CURRENT_THEME`` just use ``only_for`` decorator:
+You can use ``only_for`` decorator to restrict access to particular view according to value of ``CURRENT_THEME``:
 
 .. code:: python
 
@@ -74,11 +74,11 @@ If you want restricting access to views according by ``CURRENT_THEME`` just use 
             TemplateView.as_view(template_name='dark_theme_page.html'))
 
 
-**Extends for default templates**
+**Extends of default templates**
 
 Version 0.1.3 has a new template loader ``django_vest.templates_loaders.AppsLoader`` and new keyword ``DJANGO_ORIGIN``.
 
-Now we can override default django admin template without copy past of full origin file.
+Now you can override default django admin template without copy&pasting of whole origin file.
 
 Example:
 
@@ -102,7 +102,7 @@ Installation
 
     $ pip install django_vest
 
-And add next setting options to your ``settings.py``:
+Add next setting options to your ``settings.py``:
 
 .. code:: python
 
@@ -116,13 +116,13 @@ And add next setting options to your ``settings.py``:
     # Unique for each host
     CURRENT_THEME = 'dark_theme'
 
-Or you can set os environment:
+Or you can set the OS environment:
 
 .. code:: bash
 
     export DJANGO_VEST_CURRENT_THEME=dark_theme
 
-Also you can specify list of backends for getting settings. Default is:
+You can specify a list of backends for getting settings. Default is:
 
 .. code:: python
 
@@ -134,7 +134,7 @@ Also you can specify list of backends for getting settings. Default is:
 * django_vest.config.backends.simple - getting settings about theme from project`s settings file.
 * django_vest.config.backends.env - from os envirom
 
-Then you need to update structure of your templates like this:
+Then you need to update a structure of your templates like this:
 
 .. code:: bash
 
@@ -150,12 +150,12 @@ Other config backends (Experimental)
 ------------------------------------
 Django-vest have are several other backends like:
 
-``django_vest.config.backends.database``. If you have some singleton model for store settings of your site you can use ``django_vest.fields.VestField`` for storing information of **CURRENT_THEME** in database.
+``django_vest.config.backends.database``. If you have some singleton model to store settings of your site you can use ``django_vest.fields.VestField`` to store value of  ``CURRENT_THEME`` in database.
 
-For activating this feature you must do next steps:
+To activate this feature you have to do next:
 
-* Add ``django_vest.fields.VestField`` to you settings model and migrate.
-* Add ``django_vest.config.backends.database`` backend to top of VEST_SETTINGS_BACKENDS_LIST setting. Example:
+* Add ``django_vest.fields.VestField`` to your settings model and do migrate.
+* Add ``django_vest.config.backends.database`` backend to the top of ``VEST_SETTINGS_BACKENDS_LIST`` setting. Example:
 
 .. code:: python
 
