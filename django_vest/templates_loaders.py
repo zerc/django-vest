@@ -7,13 +7,13 @@ except ImportError:
     django_version = get_version()
 
 from django.utils._os import safe_join
-from django.template.base import TemplateDoesNotExist
+from django.template import TemplateDoesNotExist
 from django.template.loaders.filesystem import Loader as BaseLoader
 
-django_version = float('.'.join(django_version.split('.')[:2]))
-is_django_18 = django_version == 1.8
+django_version = int(''.join(django_version.split('.')[:2]))
+is_greater_than_django_18 = django_version >= 18
 
-if is_django_18:
+if is_greater_than_django_18:
     from django.template.utils import get_app_template_dirs
     from django.template.loaders.app_directories import (
         Loader as AppsBaseLoader)
@@ -23,8 +23,9 @@ else:
     from django.template.loaders.app_directories import (
         Loader as AppsBaseLoader, app_template_dirs)
 
-
 from django_vest.config import settings
+from django_vest.utils import get_dirs
+
 
 __ALL__ = ('Loader', 'AppsLoader')
 
@@ -89,7 +90,7 @@ class Loader(ThemeLoaderMixin, BaseLoader):
     """ Template loader class
     """
     def get_dirs(self):
-        return settings.TEMPLATE_DIRS
+        return get_dirs()
 
 
 class AppsLoader(ThemeLoaderMixin, AppsBaseLoader):

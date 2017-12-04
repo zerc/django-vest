@@ -89,15 +89,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'templates'),
-)
-
-TEMPLATE_LOADERS = (
-    'django_vest.templates_loaders.Loader',
-    'django_vest.templates_loaders.AppsLoader',
-)
-
 VEST_SETTINGS_BACKENDS_LIST = (
     'django_vest.config.backends.database',
     'django_vest.config.backends.simple',
@@ -107,3 +98,22 @@ VEST_SETTINGS_BACKENDS_LIST = (
 CURRENT_THEME = DEFAULT_THEME = 'main_theme'
 # CURRENT_THEME = None
 # CURRENT_THEME = 'dark_theme'
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
+        'APP_DIRS': False,
+        'OPTIONS': {
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+            ],
+            'loaders': [
+                'django_vest.templates_loaders.Loader',
+                'django_vest.templates_loaders.AppsLoader',
+            ]
+        },
+    },
+]

@@ -10,7 +10,7 @@ with open('README.rst') as readme_file:
     readme = readme_file.read()
 
 requirements = [
-    'Django>=1.5.1',
+    'Django>=1.8,<2.0',
     'six==1.9.0',
 ]
 
@@ -26,7 +26,8 @@ setup(
     author_email="zero13cool@yandex.ru",
     url="https://github.com/zerc/django-vest",
 
-    description="Extension for default template system for making inheritance more flexible. Adding some kind of themes.",
+    description="Extension for default template system for making "
+                "inheritance more flexible. Adding some kind of themes.",
     long_description=readme,
 
     packages=[

@@ -1,13 +1,10 @@
 # coding: utf-8
-import os
-
+import mock
 from django.test import override_settings
 from django.contrib.auth import get_user_model
-from django.template.base import TemplateDoesNotExist
+from django.template import TemplateDoesNotExist
 from django.core.urlresolvers import reverse
 from django.utils.text import force_text
-
-import mock
 
 from django_vest.test import TestCase
 from django_vest.templates_loaders import DJANGO_ORIGIN
